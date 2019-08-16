@@ -50,8 +50,10 @@ endfunction()
 
 # ======================
 
-find_package(InferenceEngine QUIET)
-if(InferenceEngine_FOUND)
+find_package(InferenceEngineDeveloperPackage REQUIRED)
+# find_package(InferenceEngine QUIET)
+# if(InferenceEngine_FOUND)
+if(InferenceEngineDeveloperPackage_FOUND)
   set(INF_ENGINE_TARGET IE::inference_engine)
   set(INF_ENGINE_VERSION "${InferenceEngine_VERSION}" CACHE STRING "")
   message(STATUS "Detected InferenceEngine: cmake package")
@@ -84,7 +86,6 @@ if(NOT INF_ENGINE_TARGET AND _loc)
 endif()
 
 # Add more features to the target
-
 if(INF_ENGINE_TARGET)
   if(NOT INF_ENGINE_RELEASE)
     message(WARNING "InferenceEngine version have not been set, 2019R2 will be used by default. Set INF_ENGINE_RELEASE variable if you experience build errors.")
