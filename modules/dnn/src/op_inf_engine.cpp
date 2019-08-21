@@ -487,7 +487,7 @@ void InfEngineBackendNet::initPlugin(InferenceEngine::CNNNetwork& net)
             if (device_name == "CPU")
                 getCore().SetConfig({{
                     InferenceEngine::PluginConfigParams::KEY_CPU_THREADS_NUM, format("%d", getNumThreads()),
-                }}, device_name);
+                }}, "HETERO:FPGA,CPU");
 #endif
 #endif
         }
