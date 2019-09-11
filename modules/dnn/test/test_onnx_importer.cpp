@@ -57,9 +57,6 @@ public:
         net.setInput(inp);
         Mat out = net.forward("");
 
-        std::cout << "inp " << inp.size << '\n';
-        std::cout << "out " << out.size << '\n';
-
         if (useSoftmax)
         {
             LayerParams lp;
@@ -91,29 +88,6 @@ TEST_P(Test_ONNX_layers, MaxPooling)
 {
     testONNXModels("maxpooling");
     // testONNXModels("two_maxpooling");
-}
-
-
-TEST(Test_ONNX_layer, Ngraph)
-{
-    String onnxmodel = _tf("models/convolution.onnx");
-    Mat inp, ref;
-    inp = blobFromNPY(_tf("data/input_convolution.npy"));
-    ref = blobFromNPY(_tf("data/output_convolution.npy"));
-
-    // checkBackend(&inp, &ref);
-    Net net = readNetFromONNX(onnxmodel);
-    ASSERT_FALSE(net.empty());
-
-    net.setPreferableBackend(DNN_BACKEND_NGRAPH);
-    net.setPreferableTarget(DNN_TARGET_CPU);
-
-    net.setInput(inp);
-    Mat out = net.forward("");
-    std::cout << "out " << out.size << '\n';
-    std::cout << "ref " << ref.size << '\n';
-
-    normAssert(ref, out, "");
 }
 
 TEST_P(Test_ONNX_layers, Convolution)
