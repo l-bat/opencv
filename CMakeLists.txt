@@ -1610,7 +1610,7 @@ if(WITH_INF_ENGINE OR INF_ENGINE_TARGET)
       IF _lib_dbg  THEN "${_lib_dbg}"
       ELSE "unknown"
     )
-     get_target_property(_inc ${ie_target} INTERFACE_INCLUDE_DIRECTORIES)
+    get_target_property(_inc ${ie_target} INTERFACE_INCLUDE_DIRECTORIES)
     status("    Inference Engine:" "${__msg}")
     status("                libs:" "${_lib}")
     status("            includes:" "${_inc}")

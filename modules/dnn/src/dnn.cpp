@@ -1721,7 +1721,6 @@ struct Net::Impl
             }
         }
 
-
         for (int i = 0; i < ld.inputBlobsId.size(); ++i)
         {
             LayerData &inpLd = layers[ld.inputBlobsId[i].lid];
@@ -1808,7 +1807,6 @@ void initNgraphBackend()
         return;
     }
 
-
     // Build Inference Engine networks from sets of layers that support this
     // backend. Split a whole model on several Inference Engine networks if
     // some of layers are not implemented.
@@ -1837,7 +1835,6 @@ void initNgraphBackend()
                     ieNode->net->setUnconnectedNodes(ieNode);
                 }
             }
-
             continue;
         }
         ld.skip = true;  // Initially skip all Inference Engine supported layers.
@@ -1873,7 +1870,8 @@ void initNgraphBackend()
             auto cons = curr_pos;
             while ((cons = std::find_if(curr_pos, inpLd.consumers.end(), compare)) != inpLd.consumers.end()) {
                 int cons_inp = cons->oid;
-                Ptr<NgraphBackendWrapper> inpWrapper = inpLd.outputBlobsWrappers[cons_inp].dynamicCast<NgraphBackendWrapper>();
+                Ptr<NgraphBackendWrapper> inpWrapper = inpLd.outputBlobsWrappers[cons_inp].
+                                                             dynamicCast<NgraphBackendWrapper>();
                 auto iter = std::find(inputNames.begin(), inputNames.end(), inpWrapper->dataPtr->getName());
                 if (iter == inputNames.end()) {
                     std::cout << "name " <<inpWrapper->dataPtr->getName() << '\n';
@@ -1882,7 +1880,6 @@ void initNgraphBackend()
                 }
                 curr_pos = cons + 1;
             }
-
             auto inps = net->setInputs(inputs, inputNames);
             for (auto& inp : inps) {
                 inputNodes.emplace_back(Ptr<BackendNode>(new InfEngineNgraphNode(inp)));
